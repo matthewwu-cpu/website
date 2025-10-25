@@ -14,10 +14,22 @@
     :root{
       --bg:#0b0d10; --bg-soft:#12161b; --card:#161b22; --text:#e6edf3; --muted:#9fb0c3; --brand:#7dd3fc; --accent:#a78bfa; --ring:#38bdf8;
       --shadow:0 10px 30px rgba(0,0,0,.35);
+
+      /* ===== Custom pointer tuning ===== */
+      --cursor-size: 56px;     /* <<< change pointer size */
+      --hotspot-x: 0px;        /* <<< shift image left/right relative to mouse */
+      --hotspot-y: 8px;        /* <<< shift image up/down relative to mouse */
     }
+
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,var(--bg),#0c1117);color:var(--text)}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:linear-gradient(180deg,var(--bg),#0c1117);
+      color:var(--text);
+      cursor:none; /* hide system cursor so we can use the image */
+    }
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
     .container{max-width:1100px;margin:0 auto;padding:0 20px}
@@ -41,8 +53,8 @@
     /* Title + PFP row (pfp centered to title) */
     .title-row{
       display:grid;
-      grid-template-columns: 1fr auto; /* title takes remaining space, pfp snug */
-      align-items:center;              /* vertically center pfp to title block */
+      grid-template-columns: 1fr auto;
+      align-items:center;
       gap:28px;
     }
     .profile{display:flex;align-items:center;justify-content:center}
@@ -77,12 +89,9 @@
     .card:hover{transform:translateY(-4px)}
     .card::after{content:"";position:absolute;inset:0;border-radius:16px;pointer-events:none;opacity:0;transition:opacity .2s ease;box-shadow:0 0 0 1px rgba(125,211,252,.25),0 0 0 1px inset rgba(167,139,250,.15)}
     .card:hover::after{opacity:1}
-
-    /* leveled logo area */
     .card .thumb{height:240px;padding:24px;background:#0d131a;display:flex;align-items:center;justify-content:center}
     .card .thumb.logo{background:#fff}
     .card .thumb img{width:auto;height:auto;max-width:80%;max-height:80%;object-fit:contain}
-
     .card .body{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02))}
     .tag{display:inline-block;font-size:.75rem;color:var(--muted);border:1px solid rgba(255,255,255,.12);padding:.25rem .5rem;border-radius:10px}
     .actions{display:flex;gap:.5rem;margin-top:auto;justify-content:flex-end}
@@ -112,11 +121,23 @@
       .nav .desktop-only{display:none}
     }
 
-    /* custom cursor (blue ring preserved) */
-    .cursor,.cursor-dot{position:fixed;top:0;left:0;pointer-events:none;z-index:1000;transform:translate(-50%,-50%);opacity:.85}
-    .cursor{width:26px;height:26px;border:2px solid var(--ring);border-radius:50%;mix-blend-mode:normal;transition:transform .12s ease,opacity .2s ease}
-    .cursor-dot{width:6px;height:6px;background:var(--ring);border-radius:50%;transition:transform .08s ease}
-    @media (hover:none){.cursor,.cursor-dot{display:none)}
+    /* ===== Custom image cursor ===== */
+    .cursor-img{
+      position:fixed;
+      top:0; left:0;
+      width:var(--cursor-size); height:var(--cursor-size);
+      transform:translate(calc(-50% + var(--hotspot-x)), calc(-50% + var(--hotspot-y)));
+      pointer-events:none; /* never block clicks */
+      z-index:1000;
+      image-rendering:auto;
+      filter:drop-shadow(0 2px 6px rgba(0,0,0,.35));
+    }
+
+    /* Hide custom cursor on touch-only devices */
+    @media (hover:none){
+      body{cursor:auto}
+      .cursor-img{display:none}
+    }
   </style>
 </head>
 <body>
@@ -136,7 +157,6 @@
     <div class="container">
       <span class="pill">Yale • Economics & HSHM</span>
 
-      <!-- Title with PFP directly to the right (centered vertically) -->
       <div class="title-row">
         <h1 class="title">Matthew Wu — policy, climate, and finance.</h1>
         <div class="profile">
@@ -290,76 +310,41 @@
     document.querySelectorAll('.card,.panel,.frame').forEach(el=>io.observe(el));
   </script>
 
-  <!-- Blue ring cursor kept exactly as before -->
-  <div class="cursor"></div>
-  <div class="cursor-dot"></div>
+  <!-- Custom image cursor element -->
+  <img class="cursor-img" src="cursor.png" alt="" aria-hidden="true">
 
   <script>
+    // Smooth-follow custom image cursor
     (function(){
-      const hdr=document.querySelector('header');
-      window.addEventListener('scroll',()=>{
-        const y=window.scrollY;
-        hdr.style.background = y>8 ? 'rgba(11,13,16,.8)' : 'rgba(11,13,16,.7)';
-        hdr.style.borderBottomColor = y>8 ? 'rgba(255,255,255,.10)' : 'rgba(255,255,255,.06)';
-      });
-    })();
+      const img = document.querySelector('.cursor-img');
+      if(!img) return;
 
-    (function(){
-      const c=document.querySelector('.cursor');
-      const d=document.querySelector('.cursor-dot');
-      let x=0,y=0, tx=0, ty=0;
+      let x = window.innerWidth / 2,  y = window.innerHeight / 2; // current
+      let tx = x, ty = y;                                        // target
       const lerp=(a,b,n)=>a+(b-a)*n;
-      const move=e=>{tx=e.clientX; ty=e.clientY;};
-      window.addEventListener('mousemove', move);
+
+      window.addEventListener('mousemove', (e)=>{ tx = e.clientX; ty = e.clientY; }, {passive:true});
+
       function loop(){
-        x=lerp(x,tx,0.2); y=lerp(y,ty,0.2);
-        c.style.transform=`translate(${x}px,${y}px)`;
-        d.style.transform=`translate(${tx}px,${ty}px)`;
+        x = lerp(x, tx, 0.25);
+        y = lerp(y, ty, 0.25);
+        img.style.transform =
+          `translate(calc(${x}px - 50% + var(--hotspot-x)), calc(${y}px - 50% + var(--hotspot-y)))`;
         requestAnimationFrame(loop);
-      } loop();
-      document.querySelectorAll('a, button').forEach(el=>{
-        el.addEventListener('mouseenter',()=>{c.style.transform+= ' scale(1.4)'}));
-        el.addEventListener('mouseleave',()=>{c.style.transform = c.style.transform.replace(/ scale\(1\.4\)/,'')});
+      }
+      loop();
+
+      // Optional: subtle scale on interactive elements
+      const hovers = document.querySelectorAll('a, button');
+      hovers.forEach(el=>{
+        el.addEventListener('mouseenter',()=>{ img.style.transition='transform .12s ease'; img.style.transform += ' scale(1.12)'; });
+        el.addEventListener('mouseleave',()=>{ img.style.transform = img.style.transform.replace(/ scale\(1\.12\)/,''); });
       });
-    })();
 
-    (function(){
-      document.querySelectorAll('.thumb img').forEach(img=>{img.loading='lazy'});
-      const wrap=document.querySelector('.scroller-wrap');
-      const scroller=document.getElementById('gallery');
-      if(!wrap||!scroller) return;
-      const left=wrap.querySelector('.scroll-btn.left');
-      const right=wrap.querySelector('.scroll-btn.right');
-      const step=340;
-      const smooth = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
-      left.addEventListener('click',()=>scroller.scrollBy({left:-step,behavior:smooth}));
-      right.addEventListener('click',()=>scroller.scrollBy({left:step,behavior:smooth}));
-      const update=()=>{
-        left.style.opacity = scroller.scrollLeft>8?1:.3;
-        right.style.opacity = (scroller.scrollWidth - scroller.clientWidth - scroller.scrollLeft)>8?1:.3;
-      };
-      scroller.addEventListener('scroll', update, {passive:true});
-      new ResizeObserver(update).observe(scroller);
-      update();
-    })();
-
-    (function(){
-      const links=[...document.querySelectorAll('a[href="resume.html"]')];
-      if(!links.length) return;
-      const open=(url)=>window.open(url,'_blank','noopener');
-      links.forEach(a=>{
-        a.addEventListener('click', async (e)=>{
-          e.preventDefault();
-          try{
-            const ok = await fetch('resume.html',{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
-            if(ok) return open('resume.html');
-            const pdfOk = await fetch('Matthew%20Wu%20Resume.pdf',{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
-            if(pdfOk) return open('Matthew%20Wu%20Resume.pdf');
-            alert('Resume file not found. Please upload resume.html or Matthew Wu Resume.pdf alongside index.html.');
-          }catch{
-            alert('Unable to open resume. Please upload resume.html or the PDF next to index.html.');
-          }
-        });
+      // Keep cursor visible on resize
+      window.addEventListener('resize', ()=>{
+        if (tx > window.innerWidth)  tx = window.innerWidth - 1;
+        if (ty > window.innerHeight) ty = window.innerHeight - 1;
       });
     })();
   </script>
