@@ -4,38 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Matthew Wu — Yale | Economics & HSHM</title>
-  <meta name="description" content="Policy, climate, and finance — selected work & contact." />
+  <meta name="description" content="Video-friendly personal website template: clean, responsive, fast." />
   <meta name="color-scheme" content="light dark" />
-
-  <!-- Social Cards -->
-  <meta property="og:title" content="Matthew Wu — Yale | Economics & HSHM">
-  <meta property="og:description" content="Policy, climate, and finance — selected work & contact.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://your-domain/og-image.png">
-  <meta name="twitter:card" content="summary_large_image">
-
-  <!-- Favicons (reuses cursor.png if you don’t have a favicon yet) -->
-  <link rel="icon" href="cursor.png" type="image/png">
-
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      /* Dark theme (default) */
-      --bg:#0b0d10; --bg-soft:#12161b; --card:#161b22; --text:#e6edf3; --muted:#9fb0c3;
-      --brand:#7dd3fc; --accent:#a78bfa; --ring:#38bdf8; --shadow:0 10px 30px rgba(0,0,0,.35);
+      --bg:#0b0d10; --bg-soft:#12161b; --card:#161b22; --text:#e6edf3; --muted:#9fb0c3; --brand:#7dd3fc; --accent:#a78bfa; --ring:#38bdf8;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
       --cursor-size:56px; --hotspot-x:28px; --hotspot-y:28px;
     }
-    :root, :root[data-theme="dark"]{ color-scheme: dark; }
-    :root[data-theme="light"]{
-      /* Light theme variables */
-      --bg:#f6f8fb; --bg-soft:#ffffff; --card:#ffffff; --text:#0b0d10; --muted:#566575;
-      /* keep brand/accent/ring */
-    }
-
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
@@ -49,19 +29,17 @@
     img{max-width:100%;display:block}
     .container{max-width:1100px;margin:0 auto;padding:0 20px}
 
-    /* Header */
     header{position:sticky;top:0;z-index:50;background:rgba(11,13,16,.7);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
     .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
     .logo{font-weight:800;letter-spacing:.3px}
     .logo .dot{color:var(--brand)}
-    .nav a.btn, .nav button.btn{padding:0 .2rem;border:none;border-radius:0;font-weight:600;opacity:.9;position:relative;background:none;color:inherit;cursor:pointer}
-    .nav a.btn:hover, .nav button.btn:hover{transform:translateY(-2px);background:rgba(125,211,252,.08)}
-    .nav a.btn::after, .nav button.btn::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:100%;background:linear-gradient(90deg,var(--brand),var(--accent));transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
-    .nav a.btn:hover::after, .nav button.btn:hover::after{transform:scaleX(1)}
+    .nav a.btn{padding:0 .2rem;border:none;border-radius:0;font-weight:600;opacity:.9;position:relative}
+    .nav a.btn:hover{transform:translateY(-2px);background:rgba(125,211,252,.08)}
+    .nav a.btn::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:100%;background:linear-gradient(90deg,var(--brand),var(--accent));transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
+    .nav a.btn:hover::after{transform:scaleX(1)}
 
-    /* Hero */
     .hero{position:relative;padding:96px 0 64px;overflow:clip}
-    .pill{display:inline-flex;gap:.5rem;align-items:center;border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:.35rem .7rem;color:var(--muted);font-size:.9rem;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03))}
+    .pill{display:inline-flex;gap:.5rem;align-items:center;border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:.35rem .7rem;color:var(--muted);font-size:.9rem}
     .title{font-size:clamp(2rem,4.5vw,3.5rem);line-height:1.05;margin:.6rem 0 1rem;font-weight:800}
     .lead{color:#c9d7e3;font-size:1.1rem;max-width:65ch}
 
@@ -69,16 +47,10 @@
     .profile{display:flex;align-items:center;justify-content:center}
     .avatar{width:180px;height:180px;border-radius:9999px;object-fit:cover;border:2px solid rgba(255,255,255,.12);box-shadow:0 10px 30px rgba(0,0,0,.35)}
 
-    /* Blob spotlight */
-    .blob{position:absolute;inset:auto -120px -140px auto;width:520px;opacity:.25;filter:blur(30px);pointer-events:none;animation:float 14s ease-in-out infinite}
-    @keyframes float{50%{transform:translateY(-14px) translateX(-8px) scale(1.04)}}
-
-    /* Sections */
     section{padding:72px 0}
     .section-title{font-size:1.6rem;margin:0 0 18px;font-weight:800}
     .muted{color:var(--muted)}
 
-    /* Cards / Scroller */
     .gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
     .scroller{display:flex;gap:16px;overflow-x:auto;padding:16px 0 12px;scroll-snap-type:x mandatory;scroll-padding:12px}
     .scroller .card{flex:0 0 320px;scroll-snap-align:start}
@@ -95,8 +67,8 @@
     .scroll-btn.left{left:-6px}.scroll-btn.right{right:-6px}
     @media (max-width:640px){.scroll-btn{display:none}}
 
-    .card{position:relative;grid-column:span 4;background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);transition:transform .18s ease, box-shadow .18s ease;display:flex;flex-direction:column;transform-style:preserve-3d;perspective:800px}
-    .card:hover{box-shadow:0 14px 40px rgba(0,0,0,.45)}
+    .card{position:relative;grid-column:span 4;background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);transition:transform .18s ease, box-shadow .18s ease;display:flex;flex-direction:column}
+    .card:hover{transform:translateY(-4px)}
     .card::after{content:"";position:absolute;inset:0;border-radius:16px;pointer-events:none;opacity:0;transition:opacity .2s ease;box-shadow:0 0 0 1px rgba(125,211,252,.25),0 0 0 1px inset rgba(167,139,250,.15)}
     .card:hover::after{opacity:1}
 
@@ -109,60 +81,23 @@
     .actions{display:flex;gap:.5rem;margin-top:auto;justify-content:flex-end}
     .chip{font-size:.85rem;color:#0b0d10;background:linear-gradient(90deg,var(--brand),var(--accent));padding:.45rem .65rem;border-radius:999px;font-weight:700}
 
-    /* Fancy underline */
-    a.fx-underline{background:linear-gradient(90deg,var(--brand),var(--accent)) 0 100%/0 2px no-repeat;transition:background-size .25s ease}
-    a.fx-underline:hover{background-size:100% 2px}
-
-    /* About panels */
     .about{display:grid;grid-template-columns:1fr 1fr;gap:28px}
     .about .panel{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:20px}
 
-    /* Forms/Inputs */
     form{display:grid;gap:10px}
     input, textarea{background:var(--bg-soft);border:1px solid rgba(255,255,255,.12);color:var(--text);padding:.9rem 1rem;border-radius:12px}
     textarea{min-height:140px;resize:vertical}
     .inline{display:flex;gap:10px;flex-wrap:wrap}
 
     footer{padding:40px 0;color:var(--muted);border-top:1px solid rgba(255,255,255,.06)}
+    @media (max-width:920px){.title-row{grid-template-columns:1fr;gap:16px}.avatar{width:160px;height:160px}.about{grid-template-columns:1fr}.gallery .card{grid-column:span 6}}
+    @media (max-width:640px){.gallery .card{grid-column:span 12}.nav .desktop-only{display:none}}
 
-    /* Scroll progress bar */
-    #progress{position:fixed;inset:0 auto auto 0;height:3px;background:linear-gradient(90deg,var(--brand),var(--accent));width:0;z-index:60}
-
-    /* Responsive */
-    @media (max-width:920px){
-      .title-row{grid-template-columns:1fr;gap:16px}
-      .avatar{width:160px;height:160px}
-      .about{grid-template-columns:1fr}
-      .gallery .card{grid-column:span 6}
-    }
-    @media (max-width:640px){
-      .gallery .card{grid-column:span 12}
-      .nav .desktop-only{display:none}
-    }
-
-    /* Skip link */
-    .skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:.5rem .75rem;border-radius:10px;border:1px solid rgba(255,255,255,.12)}
-    .skip:focus{left:8px}
-
-    /* Fallback follower (only if CSS cursor ignored) */
     .cursor-img{position:fixed;top:0;left:0;width:var(--cursor-size);height:var(--cursor-size);transform:translate(-50%,-50%);pointer-events:none;z-index:1000;display:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
     @media (hover:none){.cursor-img{display:none}}
-
-    /* Print stylesheet (inline) */
-    @media print{
-      *{background:transparent !important; box-shadow:none !important}
-      a[href]:after{content:" (" attr(href) ")"; font-size:.9em}
-      nav, .scroll-btn, .cursor-img, #progress{display:none !important}
-      .card{break-inside:avoid}
-    }
   </style>
 </head>
 <body>
-  <a href="#home" class="skip">Skip to content</a>
-
-  <!-- Scroll progress line -->
-  <div id="progress"></div>
-
   <header>
     <div class="container nav">
       <a href="#home" class="logo">Matthew<span class="dot">.</span>wu</a>
@@ -171,7 +106,6 @@
         <a class="btn" href="#about">About</a>
         <a class="btn" href="#contact">Contact</a>
         <a class="btn" href="resume.html" target="_blank" rel="noopener">Resume</a>
-        <button id="themeToggle" class="btn" aria-label="Toggle theme">☀︎/🌙</button>
       </nav>
     </div>
   </header>
@@ -189,12 +123,6 @@
 
       <p class="lead">I’m <strong>Matthew Wu</strong>, a Yale undergrad studying <strong>Economics</strong> and <strong>History of Science, Medicine &amp; Public Health</strong>. I work at the intersection of social-impact consulting, SRI investing, and public-health policy.</p>
     </div>
-
-    <!-- Soft animated blob spotlight -->
-    <svg class="blob" viewBox="0 0 600 600" aria-hidden="true">
-      <defs><radialGradient id="g" r="1"><stop stop-color="#7dd3fc" offset=".2"/><stop stop-color="transparent"/></radialGradient></defs>
-      <circle cx="300" cy="300" r="220" fill="url(#g)"/>
-    </svg>
   </main>
 
   <!-- ===== Experience ===== -->
@@ -206,6 +134,7 @@
       <div class="scroller-wrap">
         <button class="scroll-btn left" aria-label="Scroll left">◀</button>
         <div class="gallery scroller" id="gallery">
+
           <!-- GSCG -->
           <article class="card">
             <a class="thumb logo" href="https://www.yalegsc.org/" target="_blank" rel="noopener">
@@ -251,14 +180,14 @@
             </div>
           </article>
 
-          <!-- Kaiser — hot-linked + robust fallbacks -->
+          <!-- Kaiser Permanente — hot-linked with fallbacks, no upload needed -->
           <article id="kaiser" class="card">
             <a class="thumb logo" href="https://thrivingschools.kaiserpermanente.org/leading-the-way-introducing-the-2024-2025-national-thriving-schools-youth-council/" target="_blank" rel="noopener">
               <img
                 src="https://logo.clearbit.com/kaiserpermanente.org"
                 alt="Kaiser Permanente logo"
                 loading="lazy" decoding="async"
-                onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Kaiser_Permanente_logo.svg/512px-Kaiser_Permanente_logo.svg.png'; this.onerror=()=>{this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22100%22%3E%3Crect width=%22300%22 height=%22100%22 fill=%22%23fff%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%23000%22%3EKaiser%20logo%3C/text%3E%3C/svg%3E'; }"
+                onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Kaiser_Permanente_logo.svg/512px-Kaiser_Permanente_logo.svg.png'; this.onerror=()=>{this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22100%22%3E%3Crect width=%22300%22 height=%22100%22 fill=%22%23fff%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%23000%22%3EKaiser logo%3C/text%3E%3C/svg%3E'; }"
               />
             </a>
             <div class="body">
@@ -285,6 +214,7 @@
               <div class="actions"><a class="chip" href="https://ourclimate.us/who-we-are/" target="_blank" rel="noopener">Details</a></div>
             </div>
           </article>
+
         </div>
         <button class="scroll-btn right" aria-label="Scroll right">▶</button>
       </div>
@@ -319,42 +249,22 @@
       <p class="muted">Connect via email or LinkedIn.</p>
       <div class="inline">
         <a class="btn primary" href="mailto:matthew.wu@yale.edu">Email Matthew</a>
-        <button id="copyEmail" class="btn" type="button">Copy Email</button>
         <a class="btn" href="https://www.linkedin.com/in/matthew-wu-yale/" target="_blank" rel="noopener">LinkedIn</a>
         <a class="btn" href="resume.html" target="_blank" rel="noopener">Download Resume</a>
       </div>
-      <p class="muted" style="margin-top:8px">Press <span style="border:1px solid rgba(255,255,255,.2);padding:2px 6px;border-radius:6px">/</span> to jump here.</p>
     </div>
   </section>
 
   <footer>
     <div class="container inline" style="justify-content:space-between;align-items:center">
       <span>© <span id="year"></span> Matthew Wu</span>
-      <div class="inline" style="gap:.35rem"><a class="btn fx-underline" href="#home">Back to top ↑</a></div>
+      <div class="inline" style="gap:.35rem"><a class="btn" href="#home">Back to top ↑</a></div>
     </div>
   </footer>
 
   <script>
-    // =============================
-    // Theme toggle (light/dark)
-    // =============================
-    (() => {
-      const key='theme';
-      const root=document.documentElement;
-      const btn=document.getElementById('themeToggle');
-      const saved=localStorage.getItem(key);
-      if(saved) root.setAttribute('data-theme', saved);
-      btn?.addEventListener('click', ()=>{
-        const next = root.getAttribute('data-theme')==='light' ? 'dark' : 'light';
-        root.setAttribute('data-theme', next);
-        localStorage.setItem(key, next);
-      });
-    })();
-
-    // Year stamp
+    // Year + reveal-on-scroll
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Reveal-on-scroll animation
     const io = new IntersectionObserver(entries => {
       entries.forEach(e=>{
         if(e.isIntersecting){
@@ -367,90 +277,11 @@
       });
     }, {threshold:.08});
     document.querySelectorAll('.card,.panel,.frame').forEach(el=>io.observe(el));
+  </script>
 
-    // Scroll progress bar
-    addEventListener('scroll',()=>{
-      const p = (scrollY)/(document.body.scrollHeight - innerHeight);
-      document.getElementById('progress').style.width = `${Math.min(100, p*100)}%`;
-    }, {passive:true});
-
-    // Scroller buttons
-    (function(){
-      const wrap=document.querySelector('.scroller-wrap');
-      const scroller=document.getElementById('gallery');
-      if(!wrap||!scroller) return;
-      const left=wrap.querySelector('.scroll-btn.left');
-      const right=wrap.querySelector('.scroll-btn.right');
-      const step=340;
-      const smooth = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
-      left.addEventListener('click',()=>scroller.scrollBy({left:-step,behavior:smooth}));
-      right.addEventListener('click',()=>scroller.scrollBy({left:step,behavior:smooth}));
-      const update=()=>{
-        left.style.opacity = scroller.scrollLeft>8?1:.3;
-        right.style.opacity = (scroller.scrollWidth - scroller.clientWidth - scroller.scrollLeft)>8?1:.3;
-      };
-      scroller.addEventListener('scroll', update, {passive:true});
-      new ResizeObserver(update).observe(scroller);
-      update();
-    })();
-
-    // Resume smart open (keeps your previous working behavior)
-    (function(){
-      const links=[...document.querySelectorAll('a[href="resume.html"]')];
-      if(!links.length) return;
-      const open=(url)=>window.open(url,'_blank','noopener');
-      links.forEach(a=>{
-        a.addEventListener('click', async (e)=>{
-          e.preventDefault();
-          try{
-            const ok = await fetch('resume.html',{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
-            if(ok) return open('resume.html');
-            const pdfOk = await fetch('Matthew%20Wu%20Resume.pdf',{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
-            if(pdfOk) return open('Matthew%20Wu%20Resume.pdf');
-            alert('Resume file not found. Please upload resume.html or Matthew Wu Resume.pdf alongside index.html.');
-          }catch{
-            alert('Unable to open resume. Please upload resume.html or the PDF next to index.html.');
-          }
-        });
-      });
-    })();
-
-    // Copy email micro-interaction
-    document.getElementById('copyEmail')?.addEventListener('click', async ()=>{
-      try{
-        await navigator.clipboard.writeText('matthew.wu@yale.edu');
-        const b = document.getElementById('copyEmail');
-        const old = b.textContent; b.textContent='Copied ✓';
-        setTimeout(()=>b.textContent=old, 1200);
-      }catch{
-        alert('Copy failed — you can click the Email button instead.');
-      }
-    });
-
-    // Keyboard shortcut: "/" -> jump to contact
-    addEventListener('keydown', (e)=>{
-      if(e.key==='/' && !/input|textarea/i.test(document.activeElement.tagName)){
-        e.preventDefault();
-        document.getElementById('contact')?.scrollIntoView({behavior:'smooth', block:'start'});
-      }
-    });
-
-    // Magnetic hover tilt on cards (respects reduced motion)
-    (function(){
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const tilt = (card, e)=>{
-        const r=card.getBoundingClientRect();
-        const x=(e.clientX-r.left)/r.width - .5;
-        const y=(e.clientY-r.top)/r.height - .5;
-        card.style.transform = `rotateX(${(-y*6)}deg) rotateY(${x*6}deg) translateY(-4px)`;
-      };
-      document.querySelectorAll('.card').forEach(card=>{
-        card.addEventListener('mousemove', e=>tilt(card,e));
-        ['mouseleave','blur'].forEach(ev=>card.addEventListener(ev,()=>{card.style.transform=''}));
-      });
-    })();
-
-    // Fallback image cursor (only if CSS cursor fails)
+  <!-- Fallback image cursor (only if CSS cursor fails). Keep cursor.png beside this file. -->
+  <img class="cursor-img" src="cursor.png" alt="" aria-hidden="true">
+  <script>
     (function(){
       const cssCursorApplied = getComputedStyle(document.body).cursor.includes('url(');
       if (cssCursorApplied) return;
@@ -469,8 +300,5 @@
       })();
     })();
   </script>
-
-  <!-- Fallback image cursor (image element) -->
-  <img class="cursor-img" src="cursor.png" alt="" aria-hidden="true">
 </body>
 </html>
