@@ -145,8 +145,8 @@
         <a class="btn" href="#work">Experience</a>
         <a class="btn" href="#about">About</a>
         <a class="btn" href="#contact">Contact</a>
-        <!-- Link to the HTML resume (filename has spaces) -->
-        <a class="btn" href="Matthew%20Wu%20Resume.html" target="_blank" rel="noopener">Resume</a>
+        <!-- Start with resume.html; a script below will replace this with a working file if needed -->
+        <a class="btn resume-link" href="resume.html" target="_blank" rel="noopener">Resume</a>
       </nav>
     </div>
   </header>
@@ -229,7 +229,8 @@
           <!-- Kaiser Permanente — Thriving Schools (RESTORED) -->
           <article id="kaiser" class="card">
             <a class="thumb logo" href="https://thrivingschools.kaiserpermanente.org/leading-the-way-introducing-the-2024-2025-national-thriving-schools-youth-council/" target="_blank" rel="noopener">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Kaiser_Permanente_logo.svg/512px-Kaiser_Permanente_logo.svg.png" alt="Kaiser Permanente logo" />
+              <!-- Same URL you confirmed works -->
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Kaiser_Permanente_logo.svg/512px-Kaiser_Permanente_logo.svg.png" alt="Kaiser Permanente logo" referrerpolicy="no-referrer" />
             </a>
             <div class="body">
               <div class="inline" style="justify-content:space-between;align-items:center">
@@ -294,8 +295,8 @@
       <div class="inline">
         <a class="btn primary" href="mailto:matthew.wu@yale.edu">Email Matthew</a>
         <a class="btn" href="https://www.linkedin.com/in/matthew-wu-yale/" target="_blank" rel="noopener">LinkedIn</a>
-        <!-- PDF download using the exact filename with spaces URL-encoded -->
-        <a class="btn" href="Matthew%20Wu%20Resume.pdf" target="_blank" rel="noopener" download>Download Resume</a>
+        <!-- Start with resume.html; script will swap to a working file if needed -->
+        <a class="btn resume-link" href="resume.html" target="_blank" rel="noopener">Download Resume</a>
       </div>
     </div>
   </section>
@@ -350,10 +351,43 @@
       (function loop(){
         x = lerp(x, tx, 0.25);
         y = lerp(y, ty, 0.25);
-        // FIXED: template string for transform
         img.style.transform = `translate(${x - hsx}px, ${y - hsy}px) translate(-50%,-50%)`;
         requestAnimationFrame(loop);
       })();
+    })();
+
+    // -------- Resume link auto-fallbacks (handles spaces/case) --------
+    (async function fixResumeLinks(){
+      const candidates = [
+        "resume.html",
+        "Resume.html",
+        "Matthew%20Wu%20Resume.html",
+        "Matthew%20Wu%20Resume.pdf",
+        "resume.pdf",
+        "Resume.pdf"
+      ];
+
+      async function firstExisting(paths){
+        for (const p of paths){
+          try{
+            // HEAD is lighter, but some hosts disallow it; fall back to GET if needed
+            let res = await fetch(p, {method:"HEAD", cache:"no-store"});
+            if (!res.ok){
+              res = await fetch(p, {method:"GET", cache:"no-store"});
+            }
+            if (res.ok) return p;
+          }catch(_){}
+        }
+        return null;
+      }
+
+      const working = await firstExisting(candidates);
+      if (!working) return; // keep original hrefs
+
+      document.querySelectorAll('a.resume-link').forEach(a=>{
+        a.href = working;
+        if (working.toLowerCase().endsWith(".pdf")) a.setAttribute("download", "");
+      });
     })();
   </script>
 </body>
