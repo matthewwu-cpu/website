@@ -34,21 +34,29 @@
 
     /* Hero */
     .hero{position:relative;padding:96px 0 64px;overflow:clip}
-    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px}
     .pill{display:inline-flex;gap:.5rem;align-items:center;border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:.35rem .7rem;color:var(--muted);font-size:.9rem}
     .title{font-size:clamp(2rem,4.5vw,3.5rem);line-height:1.05;margin:.6rem 0 1rem;font-weight:800}
-    .title .grad{background:linear-gradient(90deg,var(--brand),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
-    .lead{color:#c9d7e3;font-size:1.1rem;max-width:60ch}
-    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1rem;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));font-weight:600}
-    .btn.primary{border-color:transparent;background:linear-gradient(90deg,var(--brand),var(--accent));color:#0b0d10}
-    .btn:focus{outline:none;box-shadow:0 0 0 3px rgba(56,189,248,.35)}
+    .lead{color:#c9d7e3;font-size:1.1rem;max-width:65ch}
+
+    /* Title + PFP row (pfp centered to title) */
+    .title-row{
+      display:grid;
+      grid-template-columns: 1fr auto; /* title takes remaining space, pfp snug */
+      align-items:center;              /* vertically center pfp to title block */
+      gap:28px;
+    }
+    .profile{display:flex;align-items:center;justify-content:center}
+    .avatar{
+      width:180px;height:180px;border-radius:9999px;object-fit:cover;
+      border:2px solid rgba(255,255,255,.12);box-shadow:0 10px 30px rgba(0,0,0,.35)
+    }
 
     /* Sections */
     section{padding:72px 0}
     .section-title{font-size:1.6rem;margin:0 0 18px;font-weight:800}
     .muted{color:var(--muted)}
 
-    /* ===== Cards / Gallery / Scroller ===== */
+    /* Cards / Gallery / Scroller (leveled logos) */
     .gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
     .scroller{display:flex;gap:16px;overflow-x:auto;padding:16px 0 12px;scroll-snap-type:x mandatory;scroll-padding:12px}
     .scroller .card{flex:0 0 320px;scroll-snap-align:start}
@@ -56,33 +64,24 @@
     .scroller::-webkit-scrollbar-track{background:rgba(255,255,255,.06);border-radius:999px}
     .scroller::-webkit-scrollbar-thumb{background:rgba(255,255,255,.22);border-radius:999px}
     .scroller::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.32)}
-
     .scroller-wrap{position:relative}
     .scroller-wrap::before,.scroller-wrap::after{content:"";position:absolute;top:0;bottom:0;width:48px;pointer-events:none}
     .scroller-wrap::before{left:-2px;background:linear-gradient(90deg,rgba(11,13,16,1),rgba(11,13,16,0))}
     .scroller-wrap::after{right:-2px;background:linear-gradient(270deg,rgba(11,13,16,1),rgba(11,13,16,0))}
+    .scroll-btn{position:absolute;top:50%;transform:translateY(-50%);border:1px solid rgba(255,255,255,.14);background:rgba(11,13,16,.6);backdrop-filter:blur(6px);width:36px;height:36px;border-radius:999px;display:grid;place-items:center;cursor:pointer}
+    .scroll-btn:hover{background:rgba(11,13,16,.8)}
+    .scroll-btn.left{left:-6px}.scroll-btn.right{right:-6px}
+    @media (max-width:640px){.scroll-btn{display:none}}
 
     .card{position:relative;grid-column:span 4;background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);transition:transform .18s ease, box-shadow .18s ease;display:flex;flex-direction:column}
     .card:hover{transform:translateY(-4px)}
-    .card::after{content:"";position:absolute;inset:0;border-radius:16px;pointer-events:none;opacity:0;transition:opacity .2s ease;box-shadow:0 0 0 1px rgba(125,211,252,.25), 0 0 0 1px inset rgba(167,139,250,.15)}
+    .card::after{content:"";position:absolute;inset:0;border-radius:16px;pointer-events:none;opacity:0;transition:opacity .2s ease;box-shadow:0 0 0 1px rgba(125,211,252,.25),0 0 0 1px inset rgba(167,139,250,.15)}
     .card:hover::after{opacity:1}
 
-    /* ==== LOGO LEVELING (the important part) ==== */
-    .card .thumb{
-      height:240px;                 /* fixed, equal logo area for all cards */
-      padding:24px;                 /* breathing room around logos */
-      background:#0d131a;
-      display:flex;align-items:center;justify-content:center;
-    }
-    .card .thumb.logo{background:#ffffff} /* keep white bg for certain logos */
-
-    .card .thumb img{
-      width:auto;height:auto;
-      max-width:80%;                /* scale uniformly within the box */
-      max-height:80%;
-      object-fit:contain;           /* never crop; preserve aspect ratio */
-    }
-    /* =========================================== */
+    /* leveled logo area */
+    .card .thumb{height:240px;padding:24px;background:#0d131a;display:flex;align-items:center;justify-content:center}
+    .card .thumb.logo{background:#fff}
+    .card .thumb img{width:auto;height:auto;max-width:80%;max-height:80%;object-fit:contain}
 
     .card .body{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02))}
     .tag{display:inline-block;font-size:.75rem;color:var(--muted);border:1px solid rgba(255,255,255,.12);padding:.25rem .5rem;border-radius:10px}
@@ -101,34 +100,23 @@
 
     footer{padding:40px 0;color:var(--muted);border-top:1px solid rgba(255,255,255,.06)}
 
-    /* Utilities */
-    .hide{display:none}
-    .center{text-align:center}
-
-    /* Responsive */
+    /* Responsive tweaks */
     @media (max-width:920px){
-      .grid{grid-template-columns:1fr}
-      .gallery .card{grid-column:span 6}
+      .title-row{grid-template-columns:1fr;gap:16px}
+      .avatar{width:160px;height:160px}
       .about{grid-template-columns:1fr}
+      .gallery .card{grid-column:span 6}
     }
     @media (max-width:640px){
       .gallery .card{grid-column:span 12}
       .nav .desktop-only{display:none}
     }
 
-    /* custom cursor */
+    /* custom cursor (blue ring preserved) */
     .cursor,.cursor-dot{position:fixed;top:0;left:0;pointer-events:none;z-index:1000;transform:translate(-50%,-50%);opacity:.85}
-    .cursor{width:26px;height:26px;border:2px solid var(--ring);border-radius:50%;mix-blend-mode:normal;transition:transform .12s ease, opacity .2s ease}
+    .cursor{width:26px;height:26px;border:2px solid var(--ring);border-radius:50%;mix-blend-mode:normal;transition:transform .12s ease,opacity .2s ease}
     .cursor-dot{width:6px;height:6px;background:var(--ring);border-radius:50%;transition:transform .08s ease}
-    @media (hover:none){.cursor,.cursor-dot{display:none}}
-
-    /* Profile avatar (unchanged) */
-    .profile{grid-column:2;display:flex;justify-content:flex-end;align-items:flex-start;align-self:flex-start;margin-top:-120px}
-    .avatar{width:180px;height:180px;border-radius:9999px;object-fit:cover;border:2px solid rgba(255,255,255,.12);box-shadow:0 10px 30px rgba(0,0,0,.35)}
-    @media (max-width:920px){
-      .profile{grid-column:1;justify-content:flex-start}
-      .avatar{width:160px;height:160px;margin-top:8px}
-    }
+    @media (hover:none){.cursor,.cursor-dot{display:none)}
   </style>
 </head>
 <body>
@@ -145,16 +133,18 @@
   </header>
 
   <main id="home" class="hero">
-    <div class="container grid">
-      <div>
-        <span class="pill">Yale • Economics & HSHM</span>
+    <div class="container">
+      <span class="pill">Yale • Economics & HSHM</span>
+
+      <!-- Title with PFP directly to the right (centered vertically) -->
+      <div class="title-row">
         <h1 class="title">Matthew Wu — policy, climate, and finance.</h1>
-        <p class="lead">I’m <strong>Matthew Wu</strong>, a Yale undergrad studying <strong>Economics</strong> and <strong>History of Science, Medicine &amp; Public Health</strong>. I work at the intersection of social-impact consulting, SRI investing, and public-health policy.</p>
+        <div class="profile">
+          <img class="avatar" src="https://media.licdn.com/dms/image/v2/D5603AQH2WGdZW_U0Hg/profile-displayphoto-crop_800_800/B56Zh5_hoTHQAI-/0/1754393355133?e=1762992000&v=beta&t=dUdFdshor4IrgodKeqq-z99v1TzpGD90pkMcsLeGzQY" alt="Matthew Wu headshot">
+        </div>
       </div>
 
-      <div class="profile">
-        <img class="avatar" src="https://media.licdn.com/dms/image/v2/D5603AQH2WGdZW_U0Hg/profile-displayphoto-crop_800_800/B56Zh5_hoTHQAI-/0/1754393355133?e=1762992000&v=beta&t=dUdFdshor4IrgodKeqq-z99v1TzpGD90pkMcsLeGzQY" alt="Matthew Wu headshot"/>
-      </div>
+      <p class="lead">I’m <strong>Matthew Wu</strong>, a Yale undergrad studying <strong>Economics</strong> and <strong>History of Science, Medicine &amp; Public Health</strong>. I work at the intersection of social-impact consulting, SRI investing, and public-health policy.</p>
     </div>
   </main>
 
@@ -165,7 +155,6 @@
 
       <div class="scroller-wrap">
         <button class="scroll-btn left" aria-label="Scroll left">◀</button>
-
         <div class="gallery scroller" id="gallery">
           <!-- GSCG -->
           <article class="card">
@@ -235,7 +224,6 @@
             </div>
           </article>
         </div>
-
         <button class="scroll-btn right" aria-label="Scroll right">▶</button>
       </div>
     </div>
@@ -285,10 +273,8 @@
   </footer>
 
   <script>
-    // Set current year
+    // Year + reveal on scroll
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Reveal on scroll
     const io = new IntersectionObserver(entries => {
       entries.forEach(e=>{
         if(e.isIntersecting){
@@ -304,11 +290,11 @@
     document.querySelectorAll('.card,.panel,.frame').forEach(el=>io.observe(el));
   </script>
 
+  <!-- Blue ring cursor kept exactly as before -->
   <div class="cursor"></div>
   <div class="cursor-dot"></div>
 
   <script>
-    // Header behavior on scroll
     (function(){
       const hdr=document.querySelector('header');
       window.addEventListener('scroll',()=>{
@@ -318,7 +304,6 @@
       });
     })();
 
-    // Minimal custom cursor
     (function(){
       const c=document.querySelector('.cursor');
       const d=document.querySelector('.cursor-dot');
@@ -338,7 +323,6 @@
       });
     })();
 
-    // Scroller buttons + lazy images
     (function(){
       document.querySelectorAll('.thumb img').forEach(img=>{img.loading='lazy'});
       const wrap=document.querySelector('.scroller-wrap');
@@ -347,9 +331,9 @@
       const left=wrap.querySelector('.scroll-btn.left');
       const right=wrap.querySelector('.scroll-btn.right');
       const step=340;
-      const prefersReduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      left.addEventListener('click',()=>scroller.scrollBy({left:-step,behavior:prefersReduced?'auto':'smooth'}));
-      right.addEventListener('click',()=>scroller.scrollBy({left:step,behavior:prefersReduced?'auto':'smooth'}));
+      const smooth = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+      left.addEventListener('click',()=>scroller.scrollBy({left:-step,behavior:smooth}));
+      right.addEventListener('click',()=>scroller.scrollBy({left:step,behavior:smooth}));
       const update=()=>{
         left.style.opacity = scroller.scrollLeft>8?1:.3;
         right.style.opacity = (scroller.scrollWidth - scroller.clientWidth - scroller.scrollLeft)>8?1:.3;
@@ -359,7 +343,6 @@
       update();
     })();
 
-    // Resume opener: html first, then PDF fallback
     (function(){
       const links=[...document.querySelectorAll('a[href="resume.html"]')];
       if(!links.length) return;
