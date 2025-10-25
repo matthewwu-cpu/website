@@ -18,13 +18,7 @@
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      background:linear-gradient(180deg,var(--bg),#0c1117);
-      color:var(--text);
-      cursor:url("cursor.png") var(--hotspot-x) var(--hotspot-y), auto;
-    }
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,var(--bg),#0c1117);color:var(--text);cursor:url("cursor.png") var(--hotspot-x) var(--hotspot-y), auto}
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
     .container{max-width:1100px;margin:0 auto;padding:0 20px}
@@ -90,11 +84,20 @@
     .inline{display:flex;gap:10px;flex-wrap:wrap}
 
     footer{padding:40px 0;color:var(--muted);border-top:1px solid rgba(255,255,255,.06)}
-    @media (max-width:920px){.title-row{grid-template-columns:1fr;gap:16px}.avatar{width:160px;height:160px}.about{grid-template-columns:1fr}.gallery .card{grid-column:span 6}}
-    @media (max-width:640px){.gallery .card{grid-column:span 12}.nav .desktop-only{display:none}}
+
+    @media (max-width:920px){
+      .title-row{grid-template-columns:1fr;gap:16px}
+      .avatar{width:160px;height:160px}
+      .about{grid-template-columns:1fr}
+      .gallery .card{grid-column:span 6}
+    }
+    @media (max-width:640px){
+      .gallery .card{grid-column:span 12}
+      .nav .desktop-only{display:none}
+    }
 
     .cursor-img{position:fixed;top:0;left:0;width:var(--cursor-size);height:var(--cursor-size);transform:translate(-50%,-50%);pointer-events:none;z-index:1000;display:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
-    @media (hover:none){.cursor-img{display:none}}
+    @media (hover:none){ .cursor-img{display:none} }
   </style>
 </head>
 <body>
@@ -105,7 +108,8 @@
         <a class="btn" href="#work">Experience</a>
         <a class="btn" href="#about">About</a>
         <a class="btn" href="#contact">Contact</a>
-        <a class="btn" href="resume.html" target="_blank" rel="noopener">Resume</a>
+        <!-- Use your actual resume filenames; spaces URL-encoded -->
+        <a class="btn" href="Matthew%20Wu%20Resume.html" target="_blank" rel="noopener">Resume</a>
       </nav>
     </div>
   </header>
@@ -134,11 +138,10 @@
       <div class="scroller-wrap">
         <button class="scroll-btn left" aria-label="Scroll left">◀</button>
         <div class="gallery scroller" id="gallery">
-
           <!-- GSCG -->
           <article class="card">
             <a class="thumb logo" href="https://www.yalegsc.org/" target="_blank" rel="noopener">
-              <img src="https://www.yalegsc.org/favicon.ico" alt="Yale GSCG logo" loading="lazy" decoding="async" />
+              <img src="https://www.yalegsc.org/favicon.ico" alt="Yale GSCG logo">
             </a>
             <div class="body">
               <div class="inline" style="justify-content:space-between;align-items:center">
@@ -146,14 +149,16 @@
                 <span class="tag">Associate Consultant · 2025–present</span>
               </div>
               <p class="muted">Yale’s premier social-impact consulting group (&lt;10% admit). Client research &amp; advisory for mission-driven orgs.</p>
-              <div class="actions"><a class="chip" href="https://www.yalegsc.org/" target="_blank" rel="noopener">Details</a></div>
+              <div class="actions">
+                <a class="chip" href="https://www.yalegsc.org/" target="_blank" rel="noopener">Details</a>
+              </div>
             </div>
           </article>
 
           <!-- DHSRI -->
           <article class="card">
             <a class="thumb logo" href="https://www.dwighthallsri.org/" target="_blank" rel="noopener">
-              <img src="https://static.wixstatic.com/media/3c1143_afeb6798d9de45f0b63e3db93e850918~mv2.png" alt="Dwight Hall SRI logo" loading="lazy" decoding="async" />
+              <img src="https://static.wixstatic.com/media/3c1143_afeb6798d9de45f0b63e3db93e850918~mv2.png" alt="Dwight Hall SRI logo">
             </a>
             <div class="body">
               <div class="inline" style="justify-content:space-between;align-items:center">
@@ -161,14 +166,16 @@
                 <span class="tag">Investment Analyst · 2025–present</span>
               </div>
               <p class="muted">Oldest &amp; largest undergrad-run SRI fund (~$250K AUM). Equity research, comps, and stewardship.</p>
-              <div class="actions"><a class="chip" href="https://www.dwighthallsri.org/" target="_blank" rel="noopener">Details</a></div>
+              <div class="actions">
+                <a class="chip" href="https://www.dwighthallsri.org/" target="_blank" rel="noopener">Details</a>
+              </div>
             </div>
           </article>
 
           <!-- Yale Policy Institute -->
           <article class="card">
             <a class="thumb logo" href="https://yalepolicyinstitute.com/" target="_blank" rel="noopener">
-              <img src="https://yalepolicyinstitute.com/favicon.ico?v=2" alt="Yale Policy Institute logo" loading="lazy" decoding="async" />
+              <img src="https://yalepolicyinstitute.com/favicon.ico?v=2" alt="Yale Policy Institute logo">
             </a>
             <div class="body">
               <div class="inline" style="justify-content:space-between;align-items:center">
@@ -176,14 +183,18 @@
                 <span class="tag">Researcher · 2025–present</span>
               </div>
               <p class="muted">Public Health Policy Center project on <em>Substance Use Prevention &amp; Harm Reduction in CT</em>.</p>
-              <div class="actions"><a class="chip" href="https://yalepolicyinstitute.com/" target="_blank" rel="noopener">Details</a></div>
+              <div class="actions">
+                <a class="chip" href="https://yalepolicyinstitute.com/" target="_blank" rel="noopener">Details</a>
+              </div>
             </div>
           </article>
 
-          <!-- Kaiser Permanente — use local root file -->
+          <!-- Kaiser Permanente — Thriving Schools (LOCAL IMAGE) -->
           <article id="kaiser" class="card">
             <a class="thumb logo" href="https://thrivingschools.kaiserpermanente.org/leading-the-way-introducing-the-2024-2025-national-thriving-schools-youth-council/" target="_blank" rel="noopener">
-              <img src="kaiser.png" alt="Kaiser Permanente logo" loading="lazy" decoding="async" />
+              <!-- YOUR uploaded image -->
+              <img src="assets/kaiser.png" alt="Kaiser Permanente logo" loading="lazy"
+                   onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Kaiser_Permanente_logo.svg/512px-Kaiser_Permanente_logo.svg.png';">
             </a>
             <div class="body">
               <div class="inline" style="justify-content:space-between;align-items:center">
@@ -191,14 +202,16 @@
                 <span class="tag">National Youth Council · 2024–2025</span>
               </div>
               <p class="muted">Helped launch &amp; advise a 17-member national youth council to advance school mental-health initiatives serving 10,000+ social workers.</p>
-              <div class="actions"><a class="chip" href="https://thrivingschools.kaiserpermanente.org/leading-the-way-introducing-the-2024-2025-national-thriving-schools-youth-council/" target="_blank" rel="noopener">Details</a></div>
+              <div class="actions">
+                <a class="chip" href="https://thrivingschools.kaiserpermanente.org/leading-the-way-introducing-the-2024-2025-national-thriving-schools-youth-council/" target="_blank" rel="noopener">Details</a>
+              </div>
             </div>
           </article>
 
           <!-- Our Climate -->
           <article class="card">
             <a class="thumb logo" href="https://ourclimate.us/who-we-are/" target="_blank" rel="noopener">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz7z16mx2IBY3cEuUB-zTK-ngrH-uGCHM-cA&s" alt="Our Climate logo" loading="lazy" decoding="async" />
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz7z16mx2IBY3cEuUB-zTK-ngrH-uGCHM-cA&s" alt="Our Climate logo">
             </a>
             <div class="body">
               <div class="inline" style="justify-content:space-between;align-items:center">
@@ -206,10 +219,11 @@
                 <span class="tag">National Programming Intern · 2024–2025</span>
               </div>
               <p class="muted">Coordinated programs mobilizing 3,000+ youth for climate-justice policy; voter engagement &amp; federal advocacy.</p>
-              <div class="actions"><a class="chip" href="https://ourclimate.us/who-we-are/" target="_blank" rel="noopener">Details</a></div>
+              <div class="actions">
+                <a class="chip" href="https://ourclimate.us/who-we-are/" target="_blank" rel="noopener">Details</a>
+              </div>
             </div>
           </article>
-
         </div>
         <button class="scroll-btn right" aria-label="Scroll right">▶</button>
       </div>
@@ -245,7 +259,7 @@
       <div class="inline">
         <a class="btn primary" href="mailto:matthew.wu@yale.edu">Email Matthew</a>
         <a class="btn" href="https://www.linkedin.com/in/matthew-wu-yale/" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn" href="resume.html" target="_blank" rel="noopener">Download Resume</a>
+        <a class="btn" href="Matthew%20Wu%20Resume.pdf" target="_blank" rel="noopener" download>Download Resume</a>
       </div>
     </div>
   </section>
@@ -253,18 +267,21 @@
   <footer>
     <div class="container inline" style="justify-content:space-between;align-items:center">
       <span>© <span id="year"></span> Matthew Wu</span>
-      <div class="inline" style="gap:.35rem"><a class="btn" href="#home">Back to top ↑</a></div>
+      <div class="inline" style="gap:.35rem">
+        <a class="btn" href="#home">Back to top ↑</a>
+      </div>
     </div>
   </footer>
 
   <script>
-    // Year + reveal-on-scroll
+    // Year + reveal on scroll
     document.getElementById('year').textContent = new Date().getFullYear();
     const io = new IntersectionObserver(entries => {
       entries.forEach(e=>{
         if(e.isIntersecting){
           e.target.animate(
-            [{opacity:0, transform:'translateY(12px)'},{opacity:1, transform:'translateY(0)'}],
+            [{opacity:0, transform:'translateY(12px)'},
+             {opacity:1, transform:'translateY(0)'}],
             {duration:500, easing:'ease-out', fill:'forwards'}
           );
           io.unobserve(e.target);
@@ -280,8 +297,10 @@
     (function(){
       const cssCursorApplied = getComputedStyle(document.body).cursor.includes('url(');
       if (cssCursorApplied) return;
-      const img = document.querySelector('.cursor-img'); if (!img) return;
-      img.style.display = 'block'; document.body.style.cursor = 'none';
+      const img = document.querySelector('.cursor-img');
+      if (!img) return;
+      img.style.display = 'block';
+      document.body.style.cursor = 'none';
       let x = innerWidth/2, y = innerHeight/2, tx = x, ty = y;
       const lerp=(a,b,n)=>a+(b-a)*n;
       const root = getComputedStyle(document.documentElement);
@@ -289,7 +308,8 @@
       const hsy = parseFloat(root.getPropertyValue('--hotspot-y')) || 0;
       addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; }, {passive:true});
       (function loop(){
-        x = lerp(x, tx, 0.25); y = lerp(y, ty, 0.25);
+        x = lerp(x, tx, 0.25);
+        y = lerp(y, ty, 0.25);
         img.style.transform = `translate(${x - hsx}px, ${y - hsy}px) translate(-50%,-50%)`;
         requestAnimationFrame(loop);
       })();
