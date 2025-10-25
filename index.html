@@ -14,15 +14,21 @@
     :root{
       --bg:#0b0d10; --bg-soft:#12161b; --card:#161b22; --text:#e6edf3; --muted:#9fb0c3; --brand:#7dd3fc; --accent:#a78bfa; --ring:#38bdf8;
       --shadow:0 10px 30px rgba(0,0,0,.35);
+      --cursor-size:56px; --hotspot-x:28px; --hotspot-y:28px;
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,var(--bg),#0c1117);color:var(--text)}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:linear-gradient(180deg,var(--bg),#0c1117);
+      color:var(--text);
+      cursor:url("cursor.png") var(--hotspot-x) var(--hotspot-y), auto;
+    }
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
     .container{max-width:1100px;margin:0 auto;padding:0 20px}
 
-    /* Header */
     header{position:sticky;top:0;z-index:50;background:rgba(11,13,16,.7);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
     .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
     .logo{font-weight:800;letter-spacing:.3px}
@@ -32,31 +38,19 @@
     .nav a.btn::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:100%;background:linear-gradient(90deg,var(--brand),var(--accent));transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
     .nav a.btn:hover::after{transform:scaleX(1)}
 
-    /* Hero */
     .hero{position:relative;padding:96px 0 64px;overflow:clip}
     .pill{display:inline-flex;gap:.5rem;align-items:center;border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:.35rem .7rem;color:var(--muted);font-size:.9rem}
     .title{font-size:clamp(2rem,4.5vw,3.5rem);line-height:1.05;margin:.6rem 0 1rem;font-weight:800}
     .lead{color:#c9d7e3;font-size:1.1rem;max-width:65ch}
 
-    /* NEW: title + avatar inline, centered vertically */
-    .hero-head{
-      display:flex;
-      align-items:center;       /* centers avatar to title’s midline */
-      gap:28px;
-      flex-wrap:nowrap;
-    }
-    .profile{flex:0 0 auto;display:flex;align-items:center;justify-content:center}
-    .avatar{
-      width:180px;height:180px;border-radius:9999px;object-fit:cover;
-      border:2px solid rgba(255,255,255,.12);box-shadow:0 10px 30px rgba(0,0,0,.35)
-    }
+    .title-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:28px}
+    .profile{display:flex;align-items:center;justify-content:center}
+    .avatar{width:180px;height:180px;border-radius:9999px;object-fit:cover;border:2px solid rgba(255,255,255,.12);box-shadow:0 10px 30px rgba(0,0,0,.35)}
 
-    /* Sections */
     section{padding:72px 0}
     .section-title{font-size:1.6rem;margin:0 0 18px;font-weight:800}
     .muted{color:var(--muted)}
 
-    /* Cards / Gallery / Scroller (with leveled logos) */
     .gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
     .scroller{display:flex;gap:16px;overflow-x:auto;padding:16px 0 12px;scroll-snap-type:x mandatory;scroll-padding:12px}
     .scroller .card{flex:0 0 320px;scroll-snap-align:start}
@@ -78,7 +72,6 @@
     .card::after{content:"";position:absolute;inset:0;border-radius:16px;pointer-events:none;opacity:0;transition:opacity .2s ease;box-shadow:0 0 0 1px rgba(125,211,252,.25),0 0 0 1px inset rgba(167,139,250,.15)}
     .card:hover::after{opacity:1}
 
-    /* leveled logo area */
     .card .thumb{height:240px;padding:24px;background:#0d131a;display:flex;align-items:center;justify-content:center}
     .card .thumb.logo{background:#fff}
     .card .thumb img{width:auto;height:auto;max-width:80%;max-height:80%;object-fit:contain}
@@ -88,35 +81,20 @@
     .actions{display:flex;gap:.5rem;margin-top:auto;justify-content:flex-end}
     .chip{font-size:.85rem;color:#0b0d10;background:linear-gradient(90deg,var(--brand),var(--accent));padding:.45rem .65rem;border-radius:999px;font-weight:700}
 
-    /* About */
     .about{display:grid;grid-template-columns:1fr 1fr;gap:28px}
     .about .panel{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:20px}
 
-    /* Contact */
     form{display:grid;gap:10px}
     input, textarea{background:var(--bg-soft);border:1px solid rgba(255,255,255,.12);color:var(--text);padding:.9rem 1rem;border-radius:12px}
     textarea{min-height:140px;resize:vertical}
     .inline{display:flex;gap:10px;flex-wrap:wrap}
 
     footer{padding:40px 0;color:var(--muted);border-top:1px solid rgba(255,255,255,.06)}
+    @media (max-width:920px){.title-row{grid-template-columns:1fr;gap:16px}.avatar{width:160px;height:160px}.about{grid-template-columns:1fr}.gallery .card{grid-column:span 6}}
+    @media (max-width:640px){.gallery .card{grid-column:span 12}.nav .desktop-only{display:none}}
 
-    /* Responsive tweaks */
-    @media (max-width:920px){
-      .hero-head{flex-direction:column;align-items:flex-start;gap:16px}
-      .avatar{width:160px;height:160px}
-      .about{grid-template-columns:1fr}
-      .gallery .card{grid-column:span 6}
-    }
-    @media (max-width:640px){
-      .gallery .card{grid-column:span 12}
-      .nav .desktop-only{display:none}
-    }
-
-    /* custom cursor */
-    .cursor,.cursor-dot{position:fixed;top:0;left:0;pointer-events:none;z-index:1000;transform:translate(-50%,-50%);opacity:.85}
-    .cursor{width:26px;height:26px;border:2px solid var(--ring);border-radius:50%;mix-blend-mode:normal;transition:transform .12s ease,opacity .2s ease}
-    .cursor-dot{width:6px;height:6px;background:var(--ring);border-radius:50%;transition:transform .08s ease}
-    @media (hover:none){.cursor,.cursor-dot{display:none}}
+    .cursor-img{position:fixed;top:0;left:0;width:var(--cursor-size);height:var(--cursor-size);transform:translate(-50%,-50%);pointer-events:none;z-index:1000;display:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
+    @media (hover:none){.cursor-img{display:none}}
   </style>
 </head>
 <body>
@@ -136,8 +114,7 @@
     <div class="container">
       <span class="pill">Yale • Economics & HSHM</span>
 
-      <!-- Title and PFP side-by-side -->
-      <div class="hero-head">
+      <div class="title-row">
         <h1 class="title">Matthew Wu — policy, climate, and finance.</h1>
         <div class="profile">
           <img class="avatar" src="https://media.licdn.com/dms/image/v2/D5603AQH2WGdZW_U0Hg/profile-displayphoto-crop_800_800/B56Zh5_hoTHQAI-/0/1754393355133?e=1762992000&v=beta&t=dUdFdshor4IrgodKeqq-z99v1TzpGD90pkMcsLeGzQY" alt="Matthew Wu headshot">
@@ -148,6 +125,7 @@
     </div>
   </main>
 
+  <!-- ===== Experience ===== -->
   <section id="work">
     <div class="container">
       <h2 class="section-title">Experience</h2>
@@ -156,10 +134,11 @@
       <div class="scroller-wrap">
         <button class="scroll-btn left" aria-label="Scroll left">◀</button>
         <div class="gallery scroller" id="gallery">
+
           <!-- GSCG -->
           <article class="card">
             <a class="thumb logo" href="https://www.yalegsc.org/" target="_blank" rel="noopener">
-              <img src="https://www.yalegsc.org/favicon.ico" alt="Yale GSCG logo" />
+              <img src="https://www.yalegsc.org/favicon.ico" alt="Yale GSCG logo" loading="lazy" decoding="async" />
             </a>
             <div class="body">
               <div class="inline" style="justify-content:space-between;align-items:center">
@@ -167,16 +146,14 @@
                 <span class="tag">Associate Consultant · 2025–present</span>
               </div>
               <p class="muted">Yale’s premier social-impact consulting group (&lt;10% admit). Client research &amp; advisory for mission-driven orgs.</p>
-              <div class="actions">
-                <a class="chip" href="https://www.yalegsc.org/" target="_blank" rel="noopener">Details</a>
-              </div>
+              <div class="actions"><a class="chip" href="https://www.yalegsc.org/" target="_blank" rel="noopener">Details</a></div>
             </div>
           </article>
 
           <!-- DHSRI -->
           <article class="card">
             <a class="thumb logo" href="https://www.dwighthallsri.org/" target="_blank" rel="noopener">
-              <img src="https://static.wixstatic.com/media/3c1143_afeb6798d9de45f0b63e3db93e850918~mv2.png" alt="Dwight Hall SRI logo" />
+              <img src="https://static.wixstatic.com/media/3c1143_afeb6798d9de45f0b63e3db93e850918~mv2.png" alt="Dwight Hall SRI logo" loading="lazy" decoding="async" />
             </a>
             <div class="body">
               <div class="inline" style="justify-content:space-between;align-items:center">
@@ -184,16 +161,14 @@
                 <span class="tag">Investment Analyst · 2025–present</span>
               </div>
               <p class="muted">Oldest &amp; largest undergrad-run SRI fund (~$250K AUM). Equity research, comps, and stewardship.</p>
-              <div class="actions">
-                <a class="chip" href="https://www.dwighthallsri.org/" target="_blank" rel="noopener">Details</a>
-              </div>
+              <div class="actions"><a class="chip" href="https://www.dwighthallsri.org/" target="_blank" rel="noopener">Details</a></div>
             </div>
           </article>
 
-          <!-- YPI -->
+          <!-- Yale Policy Institute -->
           <article class="card">
             <a class="thumb logo" href="https://yalepolicyinstitute.com/" target="_blank" rel="noopener">
-              <img src="https://yalepolicyinstitute.com/favicon.ico?v=2" alt="Yale Policy Institute logo" />
+              <img src="https://yalepolicyinstitute.com/favicon.ico?v=2" alt="Yale Policy Institute logo" loading="lazy" decoding="async" />
             </a>
             <div class="body">
               <div class="inline" style="justify-content:space-between;align-items:center">
@@ -201,16 +176,29 @@
                 <span class="tag">Researcher · 2025–present</span>
               </div>
               <p class="muted">Public Health Policy Center project on <em>Substance Use Prevention &amp; Harm Reduction in CT</em>.</p>
-              <div class="actions">
-                <a class="chip" href="https://yalepolicyinstitute.com/" target="_blank" rel="noopener">Details</a>
+              <div class="actions"><a class="chip" href="https://yalepolicyinstitute.com/" target="_blank" rel="noopener">Details</a></div>
+            </div>
+          </article>
+
+          <!-- Kaiser Permanente — use local root file -->
+          <article id="kaiser" class="card">
+            <a class="thumb logo" href="https://thrivingschools.kaiserpermanente.org/leading-the-way-introducing-the-2024-2025-national-thriving-schools-youth-council/" target="_blank" rel="noopener">
+              <img src="kaiser.png" alt="Kaiser Permanente logo" loading="lazy" decoding="async" />
+            </a>
+            <div class="body">
+              <div class="inline" style="justify-content:space-between;align-items:center">
+                <strong>Kaiser Permanente — Thriving Schools</strong>
+                <span class="tag">National Youth Council · 2024–2025</span>
               </div>
+              <p class="muted">Helped launch &amp; advise a 17-member national youth council to advance school mental-health initiatives serving 10,000+ social workers.</p>
+              <div class="actions"><a class="chip" href="https://thrivingschools.kaiserpermanente.org/leading-the-way-introducing-the-2024-2025-national-thriving-schools-youth-council/" target="_blank" rel="noopener">Details</a></div>
             </div>
           </article>
 
           <!-- Our Climate -->
           <article class="card">
             <a class="thumb logo" href="https://ourclimate.us/who-we-are/" target="_blank" rel="noopener">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz7z16mx2IBY3cEuUB-zTK-ngrH-uGCHM-cA&s" alt="Our Climate logo" />
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz7z16mx2IBY3cEuUB-zTK-ngrH-uGCHM-cA&s" alt="Our Climate logo" loading="lazy" decoding="async" />
             </a>
             <div class="body">
               <div class="inline" style="justify-content:space-between;align-items:center">
@@ -218,11 +206,10 @@
                 <span class="tag">National Programming Intern · 2024–2025</span>
               </div>
               <p class="muted">Coordinated programs mobilizing 3,000+ youth for climate-justice policy; voter engagement &amp; federal advocacy.</p>
-              <div class="actions">
-                <a class="chip" href="https://ourclimate.us/who-we-are/" target="_blank" rel="noopener">Details</a>
-              </div>
+              <div class="actions"><a class="chip" href="https://ourclimate.us/who-we-are/" target="_blank" rel="noopener">Details</a></div>
             </div>
           </article>
+
         </div>
         <button class="scroll-btn right" aria-label="Scroll right">▶</button>
       </div>
@@ -243,9 +230,9 @@
       <div class="panel">
         <h3 class="section-title">Highlights</h3>
         <ol class="muted" style="line-height:1.65">
-          <li>Kaiser Permanente: policy recommendations on school mental health reaching 10,000+ social workers; helped launch a national youth council (<a href="https://thrivingschools.kaiserpermanente.org/leading-the-way-introducing-the-2024-2025-national-thriving-schools-youth-council/" target="_blank" rel="noopener">article</a>).</li>
-          <li>Our Climate: mobilized 3,000+ youth for climate-justice policy; voter engagement and federal advocacy (<a href="https://ourclimate.us/who-we-are/" target="_blank" rel="noopener">who we are</a>).</li>
-          <li>Projects: Coffee Connections (Hershey Grant); Lamar Thrift—featured write-up (<a href="https://lamarlife.org/3269/spotlights/they-said-i-was-out-of-their-league/" target="_blank" rel="noopener">Lamar Life</a>).</li>
+          <li>Kaiser Permanente: policy recommendations on school mental health reaching 10,000+ social workers; helped launch a national youth council.</li>
+          <li>Our Climate: mobilized 3,000+ youth for climate-justice policy; voter engagement and federal advocacy.</li>
+          <li>Projects: Coffee Connections (Hershey Grant); Lamar Thrift—featured write-up.</li>
         </ol>
       </div>
     </div>
@@ -266,21 +253,18 @@
   <footer>
     <div class="container inline" style="justify-content:space-between;align-items:center">
       <span>© <span id="year"></span> Matthew Wu</span>
-      <div class="inline" style="gap:.35rem">
-        <a class="btn" href="#home">Back to top ↑</a>
-      </div>
+      <div class="inline" style="gap:.35rem"><a class="btn" href="#home">Back to top ↑</a></div>
     </div>
   </footer>
 
   <script>
+    // Year + reveal-on-scroll
     document.getElementById('year').textContent = new Date().getFullYear();
-
     const io = new IntersectionObserver(entries => {
       entries.forEach(e=>{
         if(e.isIntersecting){
           e.target.animate(
-            [{opacity:0, transform:'translateY(12px)'},
-             {opacity:1, transform:'translateY(0)'}],
+            [{opacity:0, transform:'translateY(12px)'},{opacity:1, transform:'translateY(0)'}],
             {duration:500, easing:'ease-out', fill:'forwards'}
           );
           io.unobserve(e.target);
@@ -290,76 +274,25 @@
     document.querySelectorAll('.card,.panel,.frame').forEach(el=>io.observe(el));
   </script>
 
-  <div class="cursor"></div>
-  <div class="cursor-dot"></div>
-
+  <!-- Fallback image cursor (only if CSS cursor fails). Keep cursor.png beside this file. -->
+  <img class="cursor-img" src="cursor.png" alt="" aria-hidden="true">
   <script>
     (function(){
-      const hdr=document.querySelector('header');
-      window.addEventListener('scroll',()=>{
-        const y=window.scrollY;
-        hdr.style.background = y>8 ? 'rgba(11,13,16,.8)' : 'rgba(11,13,16,.7)';
-        hdr.style.borderBottomColor = y>8 ? 'rgba(255,255,255,.10)' : 'rgba(255,255,255,.06)';
-      });
-    })();
-
-    (function(){
-      const c=document.querySelector('.cursor');
-      const d=document.querySelector('.cursor-dot');
-      let x=0,y=0, tx=0, ty=0;
+      const cssCursorApplied = getComputedStyle(document.body).cursor.includes('url(');
+      if (cssCursorApplied) return;
+      const img = document.querySelector('.cursor-img'); if (!img) return;
+      img.style.display = 'block'; document.body.style.cursor = 'none';
+      let x = innerWidth/2, y = innerHeight/2, tx = x, ty = y;
       const lerp=(a,b,n)=>a+(b-a)*n;
-      const move=e=>{tx=e.clientX; ty=e.clientY;};
-      window.addEventListener('mousemove', move);
-      function loop(){
-        x=lerp(x,tx,0.2); y=lerp(y,ty,0.2);
-        c.style.transform=`translate(${x}px,${y}px)`;
-        d.style.transform=`translate(${tx}px,${ty}px)`;
+      const root = getComputedStyle(document.documentElement);
+      const hsx = parseFloat(root.getPropertyValue('--hotspot-x')) || 0;
+      const hsy = parseFloat(root.getPropertyValue('--hotspot-y')) || 0;
+      addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; }, {passive:true});
+      (function loop(){
+        x = lerp(x, tx, 0.25); y = lerp(y, ty, 0.25);
+        img.style.transform = `translate(${x - hsx}px, ${y - hsy}px) translate(-50%,-50%)`;
         requestAnimationFrame(loop);
-      } loop();
-      document.querySelectorAll('a, button').forEach(el=>{
-        el.addEventListener('mouseenter',()=>{c.style.transform+= ' scale(1.4)'}));
-        el.addEventListener('mouseleave',()=>{c.style.transform = c.style.transform.replace(/ scale\(1\.4\)/,'')});
-      });
-    })();
-
-    (function(){
-      document.querySelectorAll('.thumb img').forEach(img=>{img.loading='lazy'});
-      const wrap=document.querySelector('.scroller-wrap');
-      const scroller=document.getElementById('gallery');
-      if(!wrap||!scroller) return;
-      const left=wrap.querySelector('.scroll-btn.left');
-      const right=wrap.querySelector('.scroll-btn.right');
-      const step=340;
-      const smooth = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
-      left.addEventListener('click',()=>scroller.scrollBy({left:-step,behavior:smooth}));
-      right.addEventListener('click',()=>scroller.scrollBy({left:step,behavior:smooth}));
-      const update=()=>{
-        left.style.opacity = scroller.scrollLeft>8?1:.3;
-        right.style.opacity = (scroller.scrollWidth - scroller.clientWidth - scroller.scrollLeft)>8?1:.3;
-      };
-      scroller.addEventListener('scroll', update, {passive:true});
-      new ResizeObserver(update).observe(scroller);
-      update();
-    })();
-
-    (function(){
-      const links=[...document.querySelectorAll('a[href="resume.html"]')];
-      if(!links.length) return;
-      const open=(url)=>window.open(url,'_blank','noopener');
-      links.forEach(a=>{
-        a.addEventListener('click', async (e)=>{
-          e.preventDefault();
-          try{
-            const ok = await fetch('resume.html',{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
-            if(ok) return open('resume.html');
-            const pdfOk = await fetch('Matthew%20Wu%20Resume.pdf',{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
-            if(pdfOk) return open('Matthew%20Wu%20Resume.pdf');
-            alert('Resume file not found. Please upload resume.html or Matthew Wu Resume.pdf alongside index.html.');
-          }catch{
-            alert('Unable to open resume. Please upload resume.html or the PDF next to index.html.');
-          }
-        });
-      });
+      })();
     })();
   </script>
 </body>
