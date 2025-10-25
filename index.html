@@ -14,29 +14,23 @@
     :root{
       --bg:#0b0d10; --bg-soft:#12161b; --card:#161b22; --text:#e6edf3; --muted:#9fb0c3; --brand:#7dd3fc; --accent:#a78bfa; --ring:#38bdf8;
       --shadow:0 10px 30px rgba(0,0,0,.35);
-      /* Pointer tuning */
-      --cursor-size: 56px;     /* for fallback follower only */
-      --hotspot-x: 28px;       /* <<< hotspot X (px) from image left for CSS + fallback */
-      --hotspot-y: 28px;       /* <<< hotspot Y (px) from image top for CSS + fallback */
+
+      /* Pointer (CSS native) */
+      --cursor-size:56px;    /* fallback follower only */
+      --hotspot-x:28px;      /* hotspot X in px */
+      --hotspot-y:28px;      /* hotspot Y in px */
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
 
-    /* ===========================================================
-       PRIMARY: Native CSS cursor (fastest, most compatible)
-       - Put your image file (PNG) next to index.html as cursor.png
-       - Adjust hotspot numbers after the URL (x y). They are pixels
-         from the top-left of the image to the click point.
-       =========================================================== */
+    /* Native CSS cursor: put cursor.png next to this file */
     body{
       margin:0;
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       background:linear-gradient(180deg,var(--bg),#0c1117);
       color:var(--text);
-
-      /* Try high-DPI, then standard PNG, then default */
-      cursor: url("cursor.png") var(--hotspot-x) var(--hotspot-y), auto;
+      cursor:url("cursor.png") var(--hotspot-x) var(--hotspot-y), auto;
     }
 
     a{color:inherit;text-decoration:none}
@@ -59,10 +53,10 @@
     .title{font-size:clamp(2rem,4.5vw,3.5rem);line-height:1.05;margin:.6rem 0 1rem;font-weight:800}
     .lead{color:#c9d7e3;font-size:1.1rem;max-width:65ch}
 
-    /* Title + PFP row (pfp centered to title) */
+    /* Title + PFP row */
     .title-row{
       display:grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns:1fr auto;
       align-items:center;
       gap:28px;
     }
@@ -77,7 +71,7 @@
     .section-title{font-size:1.6rem;margin:0 0 18px;font-weight:800}
     .muted{color:var(--muted)}
 
-    /* Cards / Gallery / Scroller (leveled logos) */
+    /* Cards / Gallery / Scroller */
     .gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
     .scroller{display:flex;gap:16px;overflow-x:auto;padding:16px 0 12px;scroll-snap-type:x mandatory;scroll-padding:12px}
     .scroller .card{flex:0 0 320px;scroll-snap-align:start}
@@ -98,9 +92,12 @@
     .card:hover{transform:translateY(-4px)}
     .card::after{content:"";position:absolute;inset:0;border-radius:16px;pointer-events:none;opacity:0;transition:opacity .2s ease;box-shadow:0 0 0 1px rgba(125,211,252,.25),0 0 0 1px inset rgba(167,139,250,.15)}
     .card:hover::after{opacity:1}
+
+    /* leveled logo area */
     .card .thumb{height:240px;padding:24px;background:#0d131a;display:flex;align-items:center;justify-content:center}
     .card .thumb.logo{background:#fff}
     .card .thumb img{width:auto;height:auto;max-width:80%;max-height:80%;object-fit:contain}
+
     .card .body{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02))}
     .tag{display:inline-block;font-size:.75rem;color:var(--muted);border:1px solid rgba(255,255,255,.12);padding:.25rem .5rem;border-radius:10px}
     .actions{display:flex;gap:.5rem;margin-top:auto;justify-content:flex-end}
@@ -118,7 +115,7 @@
 
     footer{padding:40px 0;color:var(--muted);border-top:1px solid rgba(255,255,255,.06)}
 
-    /* Responsive tweaks */
+    /* Responsive */
     @media (max-width:920px){
       .title-row{grid-template-columns:1fr;gap:16px}
       .avatar{width:160px;height:160px}
@@ -130,17 +127,15 @@
       .nav .desktop-only{display:none}
     }
 
-    /* ===== Fallback follower image (only shown if JS enables it) ===== */
+    /* Fallback follower (only if CSS cursor is ignored) */
     .cursor-img{
       position:fixed; top:0; left:0;
       width:var(--cursor-size); height:var(--cursor-size);
       transform:translate(-50%,-50%);
-      pointer-events:none; z-index:1000; display:none; /* hidden unless JS turns on */
+      pointer-events:none; z-index:1000; display:none;
       filter:drop-shadow(0 2px 6px rgba(0,0,0,.35));
     }
-    @media (hover:none){
-      .cursor-img{display:none}
-    }
+    @media (hover:none){ .cursor-img{display:none} }
   </style>
 </head>
 <body>
@@ -171,9 +166,136 @@
     </div>
   </main>
 
+  <!-- ===== Experience (SCROLLER with Kaiser restored) ===== -->
   <section id="work">
     <div class="container">
       <h2 class="section-title">Experience</h2>
+      <p class="muted">Selected roles & impact.</p>
+
+      <div class="scroller-wrap">
+        <button class="scroll-btn left" aria-label="Scroll left">◀</button>
+        <div class="gallery scroller" id="gallery">
+          <!-- GSCG -->
+          <article class="card">
+            <a class="thumb logo" href="https://www.yalegsc.org/" target="_blank" rel="noopener">
+              <img src="https://www.yalegsc.org/favicon.ico" alt="Yale GSCG logo" />
+            </a>
+            <div class="body">
+              <div class="inline" style="justify-content:space-between;align-items:center">
+                <strong>Global Strategy Consulting Group</strong>
+                <span class="tag">Associate Consultant · 2025–present</span>
+              </div>
+              <p class="muted">Yale’s premier social-impact consulting group (&lt;10% admit). Client research &amp; advisory for mission-driven orgs.</p>
+              <div class="actions">
+                <a class="chip" href="https://www.yalegsc.org/" target="_blank" rel="noopener">Details</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- DHSRI -->
+          <article class="card">
+            <a class="thumb logo" href="https://www.dwighthallsri.org/" target="_blank" rel="noopener">
+              <img src="https://static.wixstatic.com/media/3c1143_afeb6798d9de45f0b63e3db93e850918~mv2.png" alt="Dwight Hall SRI logo" />
+            </a>
+            <div class="body">
+              <div class="inline" style="justify-content:space-between;align-items:center">
+                <strong>Dwight Hall SRI Fund</strong>
+                <span class="tag">Investment Analyst · 2025–present</span>
+              </div>
+              <p class="muted">Oldest &amp; largest undergrad-run SRI fund (~$250K AUM). Equity research, comps, and stewardship.</p>
+              <div class="actions">
+                <a class="chip" href="https://www.dwighthallsri.org/" target="_blank" rel="noopener">Details</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Yale Policy Institute -->
+          <article class="card">
+            <a class="thumb logo" href="https://yalepolicyinstitute.com/" target="_blank" rel="noopener">
+              <img src="https://yalepolicyinstitute.com/favicon.ico?v=2" alt="Yale Policy Institute logo" />
+            </a>
+            <div class="body">
+              <div class="inline" style="justify-content:space-between;align-items:center">
+                <strong>Yale Policy Institute</strong>
+                <span class="tag">Researcher · 2025–present</span>
+              </div>
+              <p class="muted">Public Health Policy Center project on <em>Substance Use Prevention &amp; Harm Reduction in CT</em>.</p>
+              <div class="actions">
+                <a class="chip" href="https://yalepolicyinstitute.com/" target="_blank" rel="noopener">Details</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Kaiser Permanente — Thriving Schools (RESTORED) -->
+          <article id="kaiser" class="card">
+            <a class="thumb logo" href="https://thrivingschools.kaiserpermanente.org/leading-the-way-introducing-the-2024-2025-national-thriving-schools-youth-council/" target="_blank" rel="noopener">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Kaiser_Permanente_logo.svg/512px-Kaiser_Permanente_logo.svg.png" alt="Kaiser Permanente logo" />
+            </a>
+            <div class="body">
+              <div class="inline" style="justify-content:space-between;align-items:center">
+                <strong>Kaiser Permanente — Thriving Schools</strong>
+                <span class="tag">National Youth Council · 2024–2025</span>
+              </div>
+              <p class="muted">Helped launch &amp; advise a 17-member national youth council to advance school mental-health initiatives serving 10,000+ social workers.</p>
+              <div class="actions">
+                <a class="chip" href="https://thrivingschools.kaiserpermanente.org/leading-the-way-introducing-the-2024-2025-national-thriving-schools-youth-council/" target="_blank" rel="noopener">Details</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Our Climate -->
+          <article class="card">
+            <a class="thumb logo" href="https://ourclimate.us/who-we-are/" target="_blank" rel="noopener">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz7z16mx2IBY3cEuUB-zTK-ngrH-uGCHM-cA&s" alt="Our Climate logo" />
+            </a>
+            <div class="body">
+              <div class="inline" style="justify-content:space-between;align-items:center">
+                <strong>Our Climate</strong>
+                <span class="tag">National Programming Intern · 2024–2025</span>
+              </div>
+              <p class="muted">Coordinated programs mobilizing 3,000+ youth for climate-justice policy; voter engagement &amp; federal advocacy.</p>
+              <div class="actions">
+                <a class="chip" href="https://ourclimate.us/who-we-are/" target="_blank" rel="noopener">Details</a>
+              </div>
+            </div>
+          </article>
+        </div>
+        <button class="scroll-btn right" aria-label="Scroll right">▶</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container about">
+      <div class="panel">
+        <h3 class="section-title">About</h3>
+        <p class="muted">Yale University undergraduate passionate about applying economics and public-health history to climate and healthcare policy. I like building coalitions and turning research into action.</p>
+        <ul class="muted">
+          <li>🎓 <strong>Education:</strong> Yale University — B.A. Economics &amp; HSHM (May 2029)</li>
+          <li>🏆 <strong>Awards:</strong> Hershey Heartwarming Young Hero Grant; Bezos Family Foundation support; 2nd place, Congressional App Challenge (TX-07)</li>
+          <li>💼 <strong>Focus:</strong> social-impact consulting, SRI/ESG investing, public-health policy</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3 class="section-title">Highlights</h3>
+        <ol class="muted" style="line-height:1.65">
+          <li>Kaiser Permanente: policy recommendations on school mental health reaching 10,000+ social workers; helped launch a national youth council.</li>
+          <li>Our Climate: mobilized 3,000+ youth for climate-justice policy; voter engagement and federal advocacy.</li>
+          <li>Projects: Coffee Connections (Hershey Grant); Lamar Thrift—featured write-up.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">Contact</h2>
+      <p class="muted">Connect via email or LinkedIn.</p>
+      <div class="inline">
+        <a class="btn primary" href="mailto:matthew.wu@yale.edu">Email Matthew</a>
+        <a class="btn" href="https://www.linkedin.com/in/matthew-wu-yale/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="resume.html" target="_blank" rel="noopener">Download Resume</a>
+      </div>
     </div>
   </section>
 
@@ -187,7 +309,7 @@
   </footer>
 
   <script>
-    // Set year & simple reveal
+    // Year + reveal on scroll
     document.getElementById('year').textContent = new Date().getFullYear();
     const io = new IntersectionObserver(entries => {
       entries.forEach(e=>{
@@ -208,29 +330,28 @@
   <img class="cursor-img" src="cursor.png" alt="" aria-hidden="true">
   <script>
     (function(){
-      // If the browser actually applied the CSS cursor, do nothing.
-      // We'll detect by checking computed 'cursor' value including 'url('.
       const cssCursorApplied = getComputedStyle(document.body).cursor.includes('url(');
-      if (cssCursorApplied) return;
+      if (cssCursorApplied) return;            // CSS cursor works; no follower needed
 
-      // Enable follower fallback
       const img = document.querySelector('.cursor-img');
       if (!img) return;
       img.style.display = 'block';
-
-      // Hide native cursor so follower is the only thing visible
       document.body.style.cursor = 'none';
 
+      // Smooth follower
       let x = innerWidth/2, y = innerHeight/2, tx = x, ty = y;
       const lerp=(a,b,n)=>a+(b-a)*n;
-      window.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; }, {passive:true});
-      function loop(){
+      const root = getComputedStyle(document.documentElement);
+      const hsx = parseFloat(root.getPropertyValue('--hotspot-x')) || 0;
+      const hsy = parseFloat(root.getPropertyValue('--hotspot-y')) || 0;
+
+      addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; }, {passive:true});
+      (function loop(){
         x = lerp(x, tx, 0.25);
         y = lerp(y, ty, 0.25);
-        img.style.transform = `translate(${x - parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hotspot-x'))}px, ${y - parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hotspot-y'))}px) translate(-50%,-50%)`;
+        img.style.transform = `translate(${x - hsx}px, ${y - hsy}px) translate(-50%,-50%)`;
         requestAnimationFrame(loop);
-      }
-      loop();
+      })();
     })();
   </script>
 </body>
