@@ -14,7 +14,6 @@
     :root{
       --bg:#0b0d10; --bg-soft:#12161b; --card:#161b22; --text:#e6edf3; --muted:#9fb0c3; --brand:#7dd3fc; --accent:#a78bfa; --ring:#38bdf8;
       --shadow:0 10px 30px rgba(0,0,0,.35);
-
       /* Pointer (CSS native) */
       --cursor-size:56px;    /* fallback follower only */
       --hotspot-x:28px;      /* hotspot X in px */
@@ -146,7 +145,8 @@
         <a class="btn" href="#work">Experience</a>
         <a class="btn" href="#about">About</a>
         <a class="btn" href="#contact">Contact</a>
-        <a class="btn" href="Matthew Wu Resume.html" target="_blank" rel="noopener">Resume</a>
+        <!-- Link to the HTML resume (filename has spaces) -->
+        <a class="btn" href="Matthew%20Wu%20Resume.html" target="_blank" rel="noopener">Resume</a>
       </nav>
     </div>
   </header>
@@ -294,7 +294,8 @@
       <div class="inline">
         <a class="btn primary" href="mailto:matthew.wu@yale.edu">Email Matthew</a>
         <a class="btn" href="https://www.linkedin.com/in/matthew-wu-yale/" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn" href="Matthew Wu Resume.html" target="_blank" rel="noopener">Download Resume</a>
+        <!-- PDF download using the exact filename with spaces URL-encoded -->
+        <a class="btn" href="Matthew%20Wu%20Resume.pdf" target="_blank" rel="noopener" download>Download Resume</a>
       </div>
     </div>
   </section>
@@ -349,6 +350,7 @@
       (function loop(){
         x = lerp(x, tx, 0.25);
         y = lerp(y, ty, 0.25);
+        // FIXED: template string for transform
         img.style.transform = `translate(${x - hsx}px, ${y - hsy}px) translate(-50%,-50%)`;
         requestAnimationFrame(loop);
       })();
